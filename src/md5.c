@@ -118,8 +118,6 @@ void md5_finish(md5_t* md5) {
     /* On additionne le résultat. */
     for(i = 0; i < 4; i++)
         md5->digest[i] += r[i];
-
-    md5_print(md5);
 }
 
 void md5_transform(uint32_t* r, uint32_t* x) {
