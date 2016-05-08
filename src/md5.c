@@ -19,6 +19,7 @@
     (a) += (b);                \
 }
 
+/* Table de valeur construite à partir de la fonction sinus. */
 #define T (uint32_t[]) {0xD76AA478, 0xE8C7B756, 0x242070DB, 0xC1BDCEEE, \
                         0xF57C0FAF, 0x4787C62A, 0xA8304613, 0xFD469501, \
                         0x698098D8, 0x8B44F7AF, 0xFFFF5BB1, 0x895CD7BE, \
@@ -36,11 +37,13 @@
                         0x6FA87E4F, 0xFE2CE6E0, 0xA3014314, 0x4E0811A1, \
                         0xF7537E82, 0xBD3AF235, 0x2AD7D2BB, 0xEB86D391}
 
+/* Table des rotations. */
 #define S (uint32_t[]) {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, \
                         5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, \
                         4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, \
                         6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21}
 
+/* Table servant à l'extension du message. */
 #define PAD (uint8_t[]) {0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
                          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
                          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
