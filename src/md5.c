@@ -113,6 +113,7 @@ void md5_finish(md5_t* md5) {
     for(i = 0; i < 4; i++)
         r[i] = md5->digest[i];
 
+    /* On applique la transformation sur le bloc. */
     md5_transform(r, (uint32_t*)md5->buffer);
 
     /* On additionne le résultat. */
