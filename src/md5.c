@@ -157,6 +157,7 @@ void md5_print(md5_t* md5) {
     uint8_t i;
     uint8_t digest[16];
 
+    /* On repositionne les octets. */
     for(i = 0; i < 4; i++) {
         digest[   i] = (uint8_t)(md5->digest[0] >> 8*i);
         digest[ 4+i] = (uint8_t)(md5->digest[1] >> 8*i);
@@ -164,6 +165,7 @@ void md5_print(md5_t* md5) {
         digest[12+i] = (uint8_t)(md5->digest[3] >> 8*i);
     }
 
+    /* On écrit les octets en ordre. */
     for (i = 0; i < 16; i++)
         printf("%02x", digest[i]);
     printf("\n");
