@@ -3,23 +3,23 @@
 #include "md5.h"
 #include "config.h"
 
-/* On dÃ©finit les fonctions auxiliaires. */
+/* On définit les fonctions auxiliaires. */
 #define F(x, y, z) (((x) & (y)) | ((~x) & (z)))
 #define G(x, y, z) (((x) & (z)) | ((y) & (~z)))
 #define H(x, y, z) ((x) ^ (y) ^ (z))
 #define I(x, y, z) ((y) ^ ((x) | (~z)))
 
-/* On dÃ©finit une fonction pour appliquer une rotation circulaire vers la gauche. */
+/* On définit une fonction pour appliquer une rotation circulaire vers la gauche. */
 #define ROTATION(x, n) (((x) << (n)) | ((x) >> (32-(n))))
 
-/* On dÃ©finit la fonction gÃ©nÃ©rale de l'algorithme. */
+/* On définit la fonction générale de l'algorithme. */
 #define FF(a, b, f, x, t, s) { \
     (a) += (f) + (x) + (t);    \
     (a)  = ROTATION((a), (s)); \
     (a) += (b);                \
 }
 
-/* Table de valeur construite Ã  partir de la fonction sinus. */
+/* Table de valeur construite à partir de la fonction sinus. */
 #define T (uint32_t[]) {0xD76AA478, 0xE8C7B756, 0x242070DB, 0xC1BDCEEE, \
                         0xF57C0FAF, 0x4787C62A, 0xA8304613, 0xFD469501, \
                         0x698098D8, 0x8B44F7AF, 0xFFFF5BB1, 0x895CD7BE, \
@@ -43,7 +43,7 @@
                         4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, \
                         6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21}
 
-/* Table servant Ã  l'extension du message. */
+/* Table servant à l'extension du message. */
 #define PAD (uint8_t[]) {0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
                          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
                          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
@@ -85,7 +85,7 @@ void md5_update(md5_t* md5, uint8_t* data, size_t len) {
             /* On applique la transformation sur le bloc. */
             md5_transform(r, (uint32_t*)md5->buffer);
 
-            /* On additionne le rÃ©sultat. */
+            /* On additionne le résultat. */
             for(i = 0; i < 4; i++)
                 md5->digest[i] += r[i];
 
@@ -104,7 +104,7 @@ void md5_finish(md5_t* md5) {
     /* On sauvegarde la taille du message. */
     len = md5->len;
 
-    /* On calcule la quantitÃ© de pad Ã  ajouter afin que lenâ‰¡448mod512. */
+    /* On calcule la quantité de pad à ajouter afin que len448mod512. */
     pad = (len%64 < 56)?(56 - len%64):(120 - len%64);
 
     /* On ajoute le pad et la taille du message. */
@@ -119,7 +119,7 @@ void md5_finish(md5_t* md5) {
     /* On applique la transformation sur le bloc. */
     md5_transform(r, (uint32_t*)md5->buffer);
 
-    /* On additionne le rÃ©sultat. */
+    /* On additionne le résultat. */
     for(i = 0; i < 4; i++)
         md5->digest[i] += r[i];
 }
@@ -169,7 +169,7 @@ void md5_print(md5_t* md5) {
         digest[12+i] = (uint8_t)(md5->digest[3] >> 8*i);
     }
 
-    /* On Ã©crit les octets en ordre. */
+    /* On écrit les octets en ordre. */
     for (i = 0; i < 16; i++)
         printf("%02x", digest[i]);
     printf("\n");

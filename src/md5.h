@@ -6,7 +6,7 @@
 
 typedef struct md5 {
     /*
-     * Contient le prochain bloc de 512 bits Ã  transformer.
+     * Contient le prochain bloc de 512 bits à transformer.
      */
     uint8_t buffer[64];
     /**
@@ -32,25 +32,25 @@ void md5_init(md5_t* md5);
 
 /**
  * Cette fonction ajoute des bits dans le buffer interne de la structure ::md5. Si le
- * buffer atteint une taille de 512 bits, alors une transformation md5 est effectuÃ©e avec
+ * buffer atteint une taille de 512 bits, alors une transformation md5 est effectuée avec
  * la fonction md5_transform().
  *
  * @param md5  Un pointeur vers une structure ::md5.
- * @param data Un pointeur vers les bits Ã  ajouter.
- * @param len  La taille de bits Ã  ajouter.
+ * @param data Un pointeur vers les bits à ajouter.
+ * @param len  La taille de bits à ajouter.
  */
 void md5_update(md5_t* md5, uint8_t* data, size_t len);
 
 /**
- * Cette fonction finalise la signature de la structure ::md5 calculÃ©e. Elle devrait Ãªtre
- * appelÃ©e Ã  la fin et une seule fois.
+ * Cette fonction finalise la signature de la structure ::md5 calculée. Elle devrait être
+ * appelée à la fin et une seule fois.
  *
  * @param md5  Un pointeur vers une structure ::md5.
  */
 void md5_finish(md5_t* md5);
 
 /**
- * Cette fonction effectue une transformation md5 sur les registres r Ã  l'aide du bloc
+ * Cette fonction effectue une transformation md5 sur les registres r à l'aide du bloc
  * de 512 bits x.
  *
  * @param r Un pointeur vers les 4 registres.
@@ -59,8 +59,8 @@ void md5_finish(md5_t* md5);
 void md5_transform(uint32_t* r, uint32_t* x);
 
 /**
- * Cette fonction Ã©crit la signature finale de la structure ::md5. Elle arrange les
- * octets des registres selon les spÃ©cifications de l'algorithme.
+ * Cette fonction écrit la signature finale de la structure ::md5. Elle arrange les
+ * octets des registres selon les spécifications de l'algorithme.
  *
  * @param md5  Un pointeur vers une structure ::md5.
  */

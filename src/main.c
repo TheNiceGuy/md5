@@ -20,9 +20,9 @@ void help() {
     "Calcule la signature MD5 (128-bit) d'un message.\n\n"
 
     "Les modes de lecture suivant sont possible :\n"
-    "-i, --stdin            lecture Ã  partir de stdin [dÃ©faut]\n"
-    "-f, --file   [fichier] lecture Ã  partir d'un fichier\n"
-    "-s, --string [message] lecture Ã  partir de la commande\n"
+    "-i, --stdin            lecture à partir de stdin [défaut]\n"
+    "-f, --file   [fichier] lecture à partir d'un fichier\n"
+    "-s, --string [message] lecture à partir de la commande\n"
     "-h, --help             affiche ce message\n"
     );
 }
@@ -33,11 +33,11 @@ int parse_arg(int argc, char* argv[]) {
     /* On boucle pour chaque argument. */
     mode = STDIN;
     for(i = 1; i < argc; i++) {
-        /* On Ã©limine tous les arguments ayant 1 caractÃ¨re ou moins. */
+        /* On élimine tous les arguments ayant 1 caractère ou moins. */
         if(strlen(argv[i]) < 2)
             goto ERROR;
 
-        /* On s'assure que l'argument comment par un tiret. */
+        /* On s'assure que l'argument commence par un tiret. */
         if(argv[i][0] == '-') {
             /* Un tiret est l'argument court. */
             if(argv[i][1] != '-') {
@@ -56,7 +56,6 @@ int parse_arg(int argc, char* argv[]) {
                 default:
                     goto ERROR;
                 }
-
             /* Deux tirets est l'argument long. */
             } else {
                 if(strcmp("--stdin", argv[i]) == 0) {
@@ -114,7 +113,7 @@ int main(int argc, char* argv[]) {
             /* On lit 512 bits. */
             length = read(STDIN_FILENO, &buffer, 64);
 
-            /* On s'assure qu'il restait des bits Ã  lire. */
+            /* On s'assure qu'il restait des bits à lire. */
             if(!length)
                 break;
 
@@ -137,7 +136,7 @@ int main(int argc, char* argv[]) {
             /* On lit 512 bits. */
             length = fread(&buffer, 1, 64, file);
 
-            /* On s'assure qu'il restait des bits Ã  lire. */
+            /* On s'assure qu'il restait des bits à lire. */
             if(!length)
                 break;
 
@@ -156,7 +155,7 @@ int main(int argc, char* argv[]) {
     /* On calcul le dernier bloc. */
     md5_finish(&md5);
 
-    /* On Ã©crit la signature. */
+    /* On écrit la signature. */
     md5_print(&md5);
 
     return 0;
