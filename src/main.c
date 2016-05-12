@@ -2,6 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#ifdef __win32__
+    #include <windows.h>
+#endif
 #include "md5.h"
 #include "config.h"
 
