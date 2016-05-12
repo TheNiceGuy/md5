@@ -40,7 +40,7 @@ int parse_arg(int argc, char* argv[]) {
     for(i = 1; i < argc; i++) {
         /* On élimine tous les arguments ayant 1 caractère ou moins. */
         if(strlen(argv[i]) < 2)
-            goto ERROR;
+            goto ERR;
 
         /* On s'assure que l'argument commence par un tiret. */
         if(argv[i][0] == '-') {
@@ -59,7 +59,7 @@ int parse_arg(int argc, char* argv[]) {
                     help(argv[0]);
                     mode = NONE; return 0;
                 default:
-                    goto ERROR;
+                    goto ERR;
                 }
             /* Deux tirets est l'argument long. */
             } else {
@@ -79,16 +79,16 @@ int parse_arg(int argc, char* argv[]) {
                     mode = NONE;
                     return 0;
                 } else {
-                    goto ERROR;
+                    goto ERR;
                 }
             }
         } else {
-            goto ERROR;
+            goto ERR;
         }
     }
 
     return 0;
-ERROR:
+ERR:
     printf(
     "Option non reconnue -- %s\n"
     "Essayer '%s --help' pour plus d'information.\n", argv[i], argv[0]);
