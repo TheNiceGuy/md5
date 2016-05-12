@@ -14,7 +14,7 @@ ifndef $(EXECCMD)
 	EXECCMD=exec
 endif
 
-CCFLAGS+=-I./src/ -g -Wall -finput-charset=windows-1252
+CCFLAGS+=-I./src/ -g -Wall -D__linux__ -finput-charset=windows-1252
 LDFLAGS+=
 
 EXEC=md5

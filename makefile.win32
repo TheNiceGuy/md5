@@ -14,7 +14,7 @@ ifndef $(EXECCMD)
 	EXECCMD=wineconsole
 endif
 
-CCFLAGS+=-I./src/ -g -Wall
+CCFLAGS+=-I./src/ -g -Wall -D__win32__
 LDFLAGS+=-static
 
 EXEC=md5
