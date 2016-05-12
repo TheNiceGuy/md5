@@ -2,9 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#ifdef __win32__
-    #include <windows.h>
-#endif
 #include "md5.h"
 #include "config.h"
 
@@ -17,17 +14,19 @@ static char* string;
 static char* filename;
 static int mode;
 
-void help() {
+void help(char* exec) {
     printf(
-    "Utilisation: hash [MODE] ... [ARGUMENTS]\n"
+    "Utilisation: %s [MODE] ... [ARGUMENTS]\n"
     "Calcule la signature MD5 (128-bit) d'un message.\n\n"
 
     "Les modes de lecture suivant sont possible :\n"
     "-i, --stdin            lecture %c%c partir de stdin [d%c%cfaut]\n"
     "-f, --file   [fichier] lecture %c%c partir d'un fichier\n"
     "-s, --string [message] lecture %c%c partir de la commande\n"
-    "-h, --help             affiche ce message\n",
-    '\xC3', '\xA0', '\xC3', '\xA9', '\xC3', '\xA0', '\xC3', '\xA0');
+    "-h, --help             affiche ce message\n\n"
+
+    "Copyright (c) 2016 Gabriel-Andrew Pollo-Guilbert\n",
+    exec, '\xC3', '\xA0', '\xC3', '\xA9', '\xC3', '\xA0', '\xC3', '\xA0');
 }
 
 int parse_arg(int argc, char* argv[]) {
@@ -38,7 +37,7 @@ int parse_arg(int argc, char* argv[]) {
     for(i = 1; i < argc; i++) {
         /* On élimine tous les arguments ayant 1 caractère ou moins. */
         if(strlen(argv[i]) < 2)
-            goto ERR;
+            goto ERROR;
 
         /* On s'assure que l'argument commence par un tiret. */
         if(argv[i][0] == '-') {
@@ -54,10 +53,10 @@ int parse_arg(int argc, char* argv[]) {
                     string = argv[i]+2;
                     mode = STRING; break;
                 case 'h':
-                    help();
+                    help(argv[0]);
                     mode = NONE; return 0;
                 default:
-                    goto ERR;
+                    goto ERROR;
                 }
             /* Deux tirets est l'argument long. */
             } else {
@@ -73,23 +72,23 @@ int parse_arg(int argc, char* argv[]) {
                     mode = STRING;
                 } else
                 if(strcmp("--help", argv[i]) == 0) {
-                    help();
+                    help(argv[0]);
                     mode = NONE;
                     return 0;
                 } else {
-                    goto ERR;
+                    goto ERROR;
                 }
             }
         } else {
-            goto ERR;
+            goto ERROR;
         }
     }
 
     return 0;
-ERR:
+ERROR:
     printf(
     "Option non reconnue -- %s\n"
-    "Essayer 'hash --help' pour plus d'information.\n", argv[i]);
+    "Essayer '%s --help' pour plus d'information.\n", argv[i], argv[0]);
 
     return 1;
 }
