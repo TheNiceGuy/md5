@@ -1,9 +1,9 @@
 ifndef $(CC)
-	CC=gcc
+	CC=i686-w64-mingw32-gcc
 endif
 
 ifndef $(LD)
-	LD=gcc
+	LD=i686-w64-mingw32-gcc
 endif
 
 ifndef $(DB)
@@ -11,13 +11,13 @@ ifndef $(DB)
 endif
 
 ifndef $(EXECCMD)
-	EXECCMD=exec
+	EXECCMD=wineconsole
 endif
 
-CCFLAGS+=-I./src/ -g -Wall -D__LINUX__
-LDFLAGS+=
+CCFLAGS+=-I./src/ -g -Wall
+LDFLAGS+=-static
 
-EXEC=hash
+EXEC=md5
 BINDIR=/usr/bin
 SRCDIR=src
 
@@ -28,7 +28,7 @@ all: mkdir $(EXEC)
 
 $(EXEC): $(OBJECTS)
 	@printf "\tLD %s\n" bin/$(EXEC)
-	@$(LD) -o bin/$(EXEC) $(OBJECTS) $(LDFLAGS)
+	@$(LD) -o bin/$(EXEC).exe $(OBJECTS) $(LDFLAGS)
 
 %.o: %.c
 	@printf "\tCC %s\n" $@
@@ -39,10 +39,10 @@ mkdir:
 
 clean:
 	rm -rf $(OBJECTS)
-	rm -rf ./bin/$(EXEC)
+	rm -rf ./bin/$(EXEC).exe
 
 run: $(EXEC)
-	$(EXECCMD) ./bin/$(EXEC) $(ARGS)
+	$(EXECCMD) ./bin/$(EXEC).exe $(ARGS)
 
 debug: $(EXEC)
 	$(DB) bin/$(EXEC)
