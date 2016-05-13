@@ -1,16 +1,14 @@
 @echo off
-chcp 1252
-
-
+chcp 1252
 cls
 
-:: On demande à l'utilisateur de rentrer un string.
-set /p MESSAGE="Veuillez entrer le message à hacher : "
+:: On demande Ã  l'utilisateur de rentrer un string.
+set /p MESSAGE="Veuillez entrer le message Ã  hacher : "
 
 :: On execute le programme en mode string.
 bin\md5.exe --string "%MESSAGE%"
 
-:: On écrit une ligne blanche.
+:: On Ã©crit une ligne blanche.
 echo.
 
 :: On attend l'intervention de l'utilisateur pour quitter.
